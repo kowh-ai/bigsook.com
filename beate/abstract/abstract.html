@@ -237,8 +237,32 @@
             line-height: 1.1;
         }
 
+        .painting-price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 8px 0 0;
+            color: var(--accent);
+        }
+
+        .price-label {
+            color: var(--muted);
+            font-size: 0.67rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .painting-price data {
+            font-family: Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+        }
+
         .painting-details {
-            margin: 10px 0 0;
+            margin: 12px 0 0;
             color: var(--muted);
             font-size: 0.9rem;
             line-height: 1.65;
@@ -467,6 +491,7 @@
                         <div>
                             <p class="painting-kind">Abstract series</p>
                             <h2>Fenster</h2>
+                            <p class="painting-price"><span class="price-label">Price</span><data value="5200">€5,200</data></p>
                             <p class="painting-details">2015 &middot; 165 &times; 140 cm<br>Mischtechnik auf Papier</p>
                         </div>
                         <a class="inquire-link" href="mailto:info@beatetischer.com?subject=Painting%20inquiry%3A%20Fenster">Enquire about Fenster <span aria-hidden="true">&#8594;</span></a>
@@ -482,6 +507,7 @@
                         <div>
                             <p class="painting-kind">Abstract series</p>
                             <h2>Zwischenraum</h2>
+                            <p class="painting-price"><span class="price-label">Price</span><data value="6100">€6,100</data></p>
                             <p class="painting-details">2015 &middot; 194 &times; 140 cm<br>Mischtechnik &middot; Part of an abstract series</p>
                         </div>
                         <a class="inquire-link" href="mailto:info@beatetischer.com?subject=Painting%20inquiry%3A%20Zwischenraum">Enquire about Zwischenraum <span aria-hidden="true">&#8594;</span></a>
