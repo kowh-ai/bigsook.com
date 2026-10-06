@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Original paintings by Beate Tischer. Explore the 2015 abstract series and enquire about a work.">
+    <meta name="theme-color" content="#fbfaf7">
+    <title>Abstract Series | Beate Tischer</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #fbfaf7;
+            --ink: #252522;
+            --muted: #77756f;
+            --accent: #8d4438;
+            --line: #e2e0da;
+            --image-ground: #efeee9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-width: 320px;
+            background: var(--paper);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:focus-visible {
+            outline: 3px solid #376d65;
+            outline-offset: 4px;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 238px minmax(0, 1fr);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 38px 28px 30px 34px;
+            border-right: 1px solid var(--line);
+        }
+
+        .wordmark {
+            font-family: 'Bodoni 72', 'Didot', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 500;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            display: grid;
+            gap: 18px;
+            margin-top: 112px;
+        }
+
+        .nav-link {
+            width: fit-content;
+            color: var(--ink);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-link:hover,
+        .nav-link[aria-current="page"] {
+            color: var(--accent);
+        }
+
+        .sidebar-contact {
+            display: grid;
+            gap: 6px;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            font-size: 0.82rem;
+        }
+
+        .sidebar-contact-label,
+        .eyebrow,
+        .collection-index,
+        .painting-kind {
+            color: var(--muted);
+            font-weight: 700;
+            letter-spacing: 0.11em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-contact-label {
+            font-size: 0.67rem;
+        }
+
+        .contact-link {
+            width: fit-content;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        .main-content {
+            width: min(100%, 1420px);
+            margin-inline: auto;
+            padding: clamp(40px, 5.4vw, 78px) clamp(32px, 5.4vw, 80px) 28px;
+        }
+
+        .intro {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 36px;
+        }
+
+        .eyebrow,
+        .collection-index,
+        .painting-kind {
+            margin: 0;
+            font-size: 0.7rem;
+        }
+
+        h1 {
+            margin: 12px 0 0;
+            font-family: 'Bodoni 72', 'Didot', Georgia, serif;
+            font-size: clamp(3.5rem, 6vw, 5.6rem);
+            font-weight: 500;
+            line-height: 0.9;
+            letter-spacing: 0;
+        }
+
+        .intro-note {
+            max-width: 29ch;
+            margin: 0 0 3px;
+            color: var(--muted);
+            font-family: Georgia, serif;
+            font-size: 1.08rem;
+            line-height: 1.55;
+        }
+
+        .collection-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 13px;
+            padding-bottom: 11px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .collection-index {
+            font-size: 0.67rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(24px, 3vw, 44px);
+            padding-bottom: 76px;
+        }
+
+        .painting {
+            min-width: 0;
+        }
+
+        .painting-image {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            background: var(--image-ground);
+        }
+
+        .painting-image img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+
+        .painting-image:hover img {
+            transform: scale(1.015);
+        }
+
+        .view-label {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            padding: 9px 12px;
+            color: var(--ink);
+            background: rgba(251, 250, 247, 0.95);
+            font-size: 0.78rem;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 180ms ease;
+        }
+
+        .painting-image:hover .view-label,
+        .painting-image:focus-visible .view-label {
+            opacity: 1;
+        }
+
+        .painting-info {
+            padding: 17px 0 0;
+        }
+
+        .painting-kind {
+            margin-bottom: 7px;
+            font-size: 0.65rem;
+        }
+
+        h2 {
+            margin: 0;
+            font-family: 'Bodoni 72', 'Didot', Georgia, serif;
+            font-size: clamp(1.8rem, 2.4vw, 2.35rem);
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        .painting-details {
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        .inquire-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .inquire-link span {
+            display: inline-block;
+            margin-left: 4px;
+            transition: transform 180ms ease;
+        }
+
+        .inquire-link:hover span {
+            transform: translateX(4px);
+        }
+
+        .page-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 70px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .page-footer p {
+            margin: 0;
+        }
+
+        .page-footer a {
+            color: var(--ink);
+        }
+
+        @media (max-width: 980px) {
+            .page-shell {
+                grid-template-columns: 200px minmax(0, 1fr);
+            }
+
+            .sidebar {
+                padding-inline: 25px 20px;
+            }
+
+            .main-content {
+                padding-inline: 34px;
+            }
+
+            .intro {
+                display: block;
+            }
+
+            .intro-note {
+                max-width: 42ch;
+                margin-top: 17px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .page-shell {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                height: auto;
+                min-height: 72px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px;
+                padding: 16px 24px;
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .wordmark {
+                flex: 0 0 auto;
+                font-size: 1.5rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: end;
+                gap: 9px 18px;
+                margin: 0;
+            }
+
+            .nav-link {
+                font-size: 0.67rem;
+            }
+
+            .sidebar-contact {
+                display: none;
+            }
+
+            .main-content {
+                padding: 48px 24px 20px;
+            }
+
+            .intro {
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: clamp(3.25rem, 9vw, 4.5rem);
+            }
+
+            .gallery {
+                gap: 42px;
+                padding-bottom: 52px;
+            }
+
+            .page-footer {
+                min-height: 66px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .sidebar {
+                align-items: start;
+                flex-direction: column;
+                gap: 16px;
+                padding: 19px 20px 16px;
+            }
+
+            .sidebar-nav {
+                justify-content: start;
+                gap: 8px 22px;
+            }
+
+            .nav-link {
+                font-size: 0.65rem;
+            }
+
+            .main-content {
+                padding: 40px 20px 16px;
+            }
+
+            .intro {
+                margin-bottom: 28px;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 13vw, 4.2rem);
+            }
+
+            .intro-note {
+                font-size: 1rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 38px;
+                padding-bottom: 42px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .page-footer {
+                align-items: start;
+                flex-direction: column;
+                justify-content: center;
+                gap: 6px;
+                padding-block: 15px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell" id="top">
+        <aside class="sidebar" aria-label="Artist navigation">
+            <a class="wordmark" href="#top">Beate Tischer</a>
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <a class="nav-link" href="#abstract" aria-current="page">Abstract</a>
+                <a class="nav-link" href="mailto:info@beatetischer.com">Contact</a>
+            </nav>
+            <div class="sidebar-contact">
+                <span class="sidebar-contact-label">Studio inquiries</span>
+                <a class="contact-link" href="mailto:info@beatetischer.com">info@beatetischer.com</a>
+            </div>
+        </aside>
+
+        <main>
+            <div class="main-content">
+                <section class="intro" aria-labelledby="page-title">
+                    <div>
+                        <p class="eyebrow">Original works &middot; 2015</p>
+                        <h1 id="page-title">Abstract series</h1>
+                    </div>
+                    <p class="intro-note">Two original paintings from the same series. For details or to enquire, please get in touch.</p>
+                </section>
+
+                <div class="collection-bar" id="abstract">
+                    <p class="collection-index">Abstract / 01&ndash;02</p>
+                    <p class="collection-index">Mischtechnik</p>
+                </div>
+
+                <section class="gallery" aria-label="Paintings in the abstract series">
+                <article class="painting">
+                    <a class="painting-image" href="fenster.jpg" target="_blank" rel="noopener noreferrer" aria-label="View Fenster at full size">
+                        <img src="fenster.jpg" alt="Fenster, an energetic abstract painting in blue, green, violet, yellow, and red" fetchpriority="high">
+                        <span class="view-label" aria-hidden="true">View full image &#8599;</span>
+                    </a>
+                    <div class="painting-info">
+                        <div>
+                            <p class="painting-kind">Abstract series</p>
+                            <h2>Fenster</h2>
+                            <p class="painting-details">2015 &middot; 165 &times; 140 cm<br>Mischtechnik auf Papier</p>
+                        </div>
+                        <a class="inquire-link" href="mailto:info@beatetischer.com?subject=Painting%20inquiry%3A%20Fenster">Enquire about Fenster <span aria-hidden="true">&#8594;</span></a>
+                    </div>
+                </article>
+
+                <article class="painting">
+                    <a class="painting-image" href="zwischenraum.jpg" target="_blank" rel="noopener noreferrer" aria-label="View Zwischenraum at full size">
+                        <img src="zwischenraum.jpg" alt="Zwischenraum, a layered abstract painting with sweeping white, green, yellow, pink, and violet marks" loading="lazy">
+                        <span class="view-label" aria-hidden="true">View full image &#8599;</span>
+                    </a>
+                    <div class="painting-info">
+                        <div>
+                            <p class="painting-kind">Abstract series</p>
+                            <h2>Zwischenraum</h2>
+                            <p class="painting-details">2015 &middot; 194 &times; 140 cm<br>Mischtechnik &middot; Part of an abstract series</p>
+                        </div>
+                        <a class="inquire-link" href="mailto:info@beatetischer.com?subject=Painting%20inquiry%3A%20Zwischenraum">Enquire about Zwischenraum <span aria-hidden="true">&#8594;</span></a>
+                    </div>
+                </article>
+                </section>
+
+                <footer class="page-footer" id="contact">
+                    <p>Inquiries <a href="mailto:info@beatetischer.com">info@beatetischer.com</a></p>
+                    <p>&copy; 2026 Beate Tischer</p>
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
