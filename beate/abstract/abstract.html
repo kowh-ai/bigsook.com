@@ -308,6 +308,68 @@
             color: var(--ink);
         }
 
+        .contact-section {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            align-items: start;
+            gap: clamp(28px, 5vw, 68px);
+            margin-top: 28px;
+            padding: 34px 0 56px;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact-photo {
+            background: var(--image-ground);
+        }
+
+        .contact-photo img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .contact-content {
+            padding-top: 8px;
+        }
+
+        .contact-content h2 {
+            margin-top: 11px;
+            font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+        }
+
+        .contact-address {
+            margin: 22px 0 0;
+            font-size: 1rem;
+            font-style: normal;
+            line-height: 1.8;
+        }
+
+        .contact-address a,
+        .contact-details a,
+        .location-plan {
+            text-decoration-color: var(--accent);
+            text-underline-offset: 4px;
+        }
+
+        .contact-details {
+            display: grid;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .contact-details p {
+            margin: 0;
+        }
+
+        .studio-note {
+            max-width: 32ch;
+            margin: 25px 0 0;
+            color: var(--muted);
+            font-family: Georgia, serif;
+            font-size: 1.08rem;
+            line-height: 1.6;
+        }
+
         @media (max-width: 980px) {
             .page-shell {
                 grid-template-columns: 200px minmax(0, 1fr);
@@ -442,6 +504,20 @@
                 gap: 6px;
                 padding-block: 15px;
             }
+
+            .contact-section {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                padding: 26px 0 38px;
+            }
+
+            .contact-photo {
+                max-width: 420px;
+            }
+
+            .contact-content {
+                padding-top: 0;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -459,7 +535,7 @@
             <nav class="sidebar-nav" aria-label="Main navigation">
                 <a class="nav-link" href="#abstract" aria-current="page">Abstract</a>
                 <a class="nav-link" href="#works">Selected works</a>
-                <a class="nav-link" href="mailto:info@beatetischer.com">Contact</a>
+                <a class="nav-link" href="#contact">Contact</a>
             </nav>
             <div class="sidebar-contact">
                 <span class="sidebar-contact-label">Studio inquiries</span>
@@ -683,7 +759,29 @@
                     </article>
                 </section>
 
-                <footer class="page-footer" id="contact">
+                <section class="contact-section" id="contact" aria-labelledby="contact-title">
+                    <div class="contact-photo">
+                        <img src="beate.jpg" alt="Beate Tischer in her studio beside one of her paintings" loading="lazy">
+                    </div>
+                    <div class="contact-content">
+                        <p class="eyebrow">Studio visits by arrangement</p>
+                        <h2 id="contact-title">Visit the studio</h2>
+                        <address class="contact-address">
+                            <a href="https://www.google.de/maps/place/Atelierhaus+Prenzlauer+Promenade/@52.5617603,13.4247707,17z/data=!3m1!4b1!4m5!3m4!1s0x47a84df5562b2b97:0xdeb451c17f7838d6!8m2!3d52.5617571!4d13.4269647" target="_blank" rel="noopener noreferrer">Atelierhaus Prenzlauer Promenade</a><br>
+                            Prenzlauer Promenade 149-152,<br>
+                            4th floor, Room 556,<br>
+                            13189 Berlin
+                        </address>
+                        <p><a class="location-plan" href="https://www.beatetischer.com/wp-content/uploads/2017/06/Lageplan-KEP-2017-artspring.jpg" target="_blank" rel="noopener noreferrer">View location plan</a></p>
+                        <div class="contact-details">
+                            <p><a href="mailto:beate.h.tischer@gmail.com">info@beatetischer.com</a></p>
+                            <p><a href="tel:+4917620954598">+49 176 20 95 45 98</a></p>
+                        </div>
+                        <p class="studio-note">Studio visits can be arranged by email.</p>
+                    </div>
+                </section>
+
+                <footer class="page-footer">
                     <p>Inquiries <a href="mailto:info@beatetischer.com">info@beatetischer.com</a></p>
                     <p>&copy; 2026 Beate Tischer</p>
                 </footer>
